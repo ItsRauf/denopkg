@@ -1,15 +1,15 @@
-/**
- * Every exported symbol ideally should have a documentation line.
- *
- * It is important that documentation is easily human readable,
- * but there is also a need to provide additional styling information to ensure
- * generated documentation is more rich text.
- * Therefore JSDoc should generally follow markdown markup to enrich the text.
- *
- * follow https://deno.land/std/style_guide.md
- *
- * @param foo - Description of non obvious parameter
- */
-export default function starter(foo: string): string {
-  return foo;
+import { Command } from "https://deno.land/x/cmd/mod.ts";
+const cli = new Command("denopkg");
+
+if (import.meta.main) {
+  const denopkgDir = import.meta.url.slice(8, -7);
+  for await (const dirEntry of Deno.readDir(`./src/commands`)) {
+    if (dirEntry.isFile) {
+      const { default: Command } = await import(
+        `./src/commands/${dirEntry.name}`
+      );
+      cli.addCommand(Command);
+    }
+  }
+  cli.parse(Deno.args);
 }
