@@ -10,6 +10,7 @@ export default new Command("start")
     console.log("denopkg start\n");
     const parsed = await parseDenopkg();
     const tmpFilePath = parsed.deps ? await tmpImportmap(parsed.deps) : "";
+    console.log(Deno.cwd());
     const output = await Deno.run({
       cmd: [
         "deno",
