@@ -9,13 +9,13 @@ export default new Command("start")
   .action(async (...args: any[]) => {
     console.log("denopkg start\n");
     const parsed = await parseDenopkg();
-    const tmpFilePath = await tmpImportmap(parsed.deps);
+    const tmpFilePath = parsed.deps ? await tmpImportmap(parsed.deps) : "";
     const output = await Deno.run({
       cmd: [
         "deno",
         "run",
         ...(args[1] ? args[1] : []),
-        `--importmap=${tmpFilePath}`,
+        parsed.deps ? `--importmap=${tmpFilePath}` : "",
         "--unstable",
         join(Deno.cwd(), "mod.ts"),
       ],

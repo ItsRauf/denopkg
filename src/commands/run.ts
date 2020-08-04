@@ -8,8 +8,7 @@ export default new Command("run")
   .action(async (scriptName: string, ...args: any[]) => {
     const parsed = await parseDenopkg();
     const script = parsed.scripts[scriptName];
-    console.log(script);
-    const tmpFilePath = await tmpImportmap(parsed.deps);
+    const tmpFilePath = script.importmap ? await tmpImportmap(parsed.deps) : "";
     const scriptArgs = script.cmd.split(" ");
     const lastScriptArg = scriptArgs.pop();
     const output = await Deno.run({
