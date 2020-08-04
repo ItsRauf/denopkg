@@ -2,7 +2,8 @@ import { Command } from "https://deno.land/x/cmd@v1.2.0/mod.ts";
 import { parseDenopkg } from "../parseDenopkg.ts";
 import { tmpImportmap } from "../tmpImportmap.ts";
 
-export default new Command("run <scriptName>")
+export default new Command("run")
+  .command("run <scriptName>")
   .description("Runs a script from the denopkg file")
   .action(async (scriptName: string, ...args: any[]) => {
     const parsed = await parseDenopkg();

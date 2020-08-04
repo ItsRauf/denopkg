@@ -4,6 +4,7 @@ import { parseDenopkg } from "../parseDenopkg.ts";
 import { tmpImportmap } from "../tmpImportmap.ts";
 
 export default new Command("start")
+  .command("start")
   .description("Start mod.ts")
   .action(async (...args: any[]) => {
     console.log("denopkg start\n");

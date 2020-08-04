@@ -52,7 +52,7 @@ async function init(path: string) {
   }
 }
 
-export default new Command("init [dir]").description(
+export default new Command("init").command("init [dir]").description(
   "Initialize a deno package",
 ).action(async (dir: string | undefined) => {
   console.log("denopkg init\n");
